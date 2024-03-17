@@ -7,7 +7,7 @@ namespace PixelService.Middleware
         private readonly RequestDelegate _next;
 
         private const string CONTENT_TYPE_HEADER_NAME = "Content-Type";
-        private const string REFERRER_HEADER_NAME = "Referrer";
+        private const string REFERER_HEADER_NAME = "Referer";
         private const string USER_AGENT_HEADER_NAME = "User-Agent";
         private const string IMAGE_TYPE = "image/gif";
         private const string GET_METHOD_NAME = "GET";
@@ -36,7 +36,7 @@ namespace PixelService.Middleware
             {
                 try
                 {
-                    var referrer = context.Request.Headers[REFERRER_HEADER_NAME].ToString();
+                    var referrer = context.Request.Headers[REFERER_HEADER_NAME].ToString();
                     var userAgent = context.Request.Headers[USER_AGENT_HEADER_NAME].ToString();
                     var ipAddress = context.Connection.RemoteIpAddress?.ToString();
 

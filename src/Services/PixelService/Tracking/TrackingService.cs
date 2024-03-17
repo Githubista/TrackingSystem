@@ -1,6 +1,4 @@
-﻿using PixelService.Services;
-
-namespace PixelService.Tracking
+﻿namespace PixelService.Tracking
 {
     public class TrackingService : IService<TrackingRequestModel, TrackingResponseModel>
     {

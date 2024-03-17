@@ -6,9 +6,8 @@
         {
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        public async ValueTask Invoke(HttpContext context)
         {
-            await Task.CompletedTask;
             SetHeaders(context);
             if (context.Request.Path.StartsWithSegments("/track"))
                 context.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type");

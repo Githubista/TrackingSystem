@@ -14,7 +14,7 @@ namespace PixelService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IService<TrackingRequestModel,TrackingResponseModel>, TrackingService>();
+            services.AddSingleton<IService<TrackingRequestModel,TrackingResponseModel>, TrackingService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
