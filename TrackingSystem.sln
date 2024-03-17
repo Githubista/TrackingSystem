@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixelService", "src\Services\PixelService\PixelService.csproj", "{C6D00077-3B71-4705-BDB1-998625E41EDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{082BCAFE-50ED-44E3-8200-ECACBA08223B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{6C465785-EF6E-4DA9-95C2-CA7F20E68829}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C6D00077-3B71-4705-BDB1-998625E41EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6D00077-3B71-4705-BDB1-998625E41EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6D00077-3B71-4705-BDB1-998625E41EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6D00077-3B71-4705-BDB1-998625E41EDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C6D00077-3B71-4705-BDB1-998625E41EDF} = {6C465785-EF6E-4DA9-95C2-CA7F20E68829}
+		{6C465785-EF6E-4DA9-95C2-CA7F20E68829} = {082BCAFE-50ED-44E3-8200-ECACBA08223B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5B6A35E-5845-42AA-A0C2-5DBD4AA41296}
+	EndGlobalSection
+EndGlobal
