@@ -2,15 +2,15 @@
 {
     public class TrackingRequestModel
     {
-        public string? Referrer { get; init; }
+        public string? Referer { get; init; }
         public string? UserAgent { get; init; }
         public string? IpAddress { get; init; }
 
-        public TrackingRequestModel(string? referrer,
+        public TrackingRequestModel(string? referer,
             string? userAgent,
             string? ipAddress)
         {
-            Referrer = referrer;
+            Referer = referer;
             UserAgent = userAgent;
             IpAddress = ipAddress;
         }

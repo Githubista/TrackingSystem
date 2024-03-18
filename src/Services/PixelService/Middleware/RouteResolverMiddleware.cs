@@ -13,19 +13,16 @@ namespace PixelService.Middleware
         private const string GET_METHOD_NAME = "GET";
         private const string TRACK_METHOD_NAME = "/track";
 
-        private readonly IService<TrackingRequestModel, TrackingResponseModel> _trackingService;
         private readonly ILogger<RouteResolverMiddleware> _logger;
 
         public RouteResolverMiddleware(RequestDelegate next,
-            IService<TrackingRequestModel, TrackingResponseModel> trackingService,
             ILogger<RouteResolverMiddleware> logger)
         {
             _next = next;
-            _trackingService = trackingService;
             _logger = logger;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, IHost host)
         {
             OptionsMiddleware.SetHeaders(context);
 
@@ -40,10 +37,15 @@ namespace PixelService.Middleware
                     var userAgent = context.Request.Headers[USER_AGENT_HEADER_NAME].ToString();
                     var ipAddress = context.Connection.RemoteIpAddress?.ToString();
 
+                    _logger.LogInformation("Ip address is {ip}", ipAddress);
+
                     var requestModel = new TrackingRequestModel(referrer, userAgent, ipAddress);
 
                     context.Response.Headers.Add(CONTENT_TYPE_HEADER_NAME, IMAGE_TYPE);
-                    var responseModel = await _trackingService.GetAsync(requestModel, context);
+
+                    using var scope = host.Services.CreateScope();
+                    var trackingService = scope.ServiceProvider.GetRequiredService<IService<TrackingRequestModel, TrackingResponseModel>>();
+                    var responseModel = await trackingService.GetAsync(requestModel, context, default);
                     var imageBytes = responseModel.ImageBytes;
                     await context.Response.Body.WriteAsync(imageBytes, 0, imageBytes.Length);
                 }

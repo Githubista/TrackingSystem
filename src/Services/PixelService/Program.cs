@@ -16,7 +16,7 @@ namespace PixelService
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders(); 
-                    // in production an event log as Serilog needs to be configured
+                    // normally an event log as Serilog needs to be configured
                     logging.AddConsole();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>

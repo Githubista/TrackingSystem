@@ -1,4 +1,6 @@
-﻿using PixelService.Middleware;
+﻿using MassTransit;
+using PixelService.Middleware;
+using PixelService.Settings;
 using PixelService.Tracking;
 
 namespace PixelService
@@ -14,7 +16,21 @@ namespace PixelService
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IService<TrackingRequestModel,TrackingResponseModel>, TrackingService>();
+            services.AddScoped<IService<TrackingRequestModel,TrackingResponseModel>, TrackingService>();
+            services.AddMassTransit(x =>
+            {
+                var rabbitMqSettings = Configuration.GetSection(nameof(RabbitMqSettings)).Get<RabbitMqSettings>();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(rabbitMqSettings.Host, rabbitMqSettings.Port, "/", h =>
+                    {
+                        h.Username(rabbitMqSettings.Username);
+                        h.Password(rabbitMqSettings.Password);
+                    });
+
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
