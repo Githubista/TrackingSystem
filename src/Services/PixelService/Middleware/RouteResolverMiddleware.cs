@@ -44,7 +44,7 @@ namespace PixelService.Middleware
 
                     using var scope = _serviceScopeFactory.CreateScope();
                     var trackingService = scope.ServiceProvider.GetRequiredService<IService<TrackingRequestModel, TrackingResponseModel>>();
-                    var responseModel = await trackingService.GetAsync(requestModel, context, default);
+                    var responseModel = await trackingService.GetAsync(requestModel);
                     var imageBytes = responseModel.ImageBytes;
                     await context.Response.Body.WriteAsync(imageBytes, 0, imageBytes.Length);
                 }

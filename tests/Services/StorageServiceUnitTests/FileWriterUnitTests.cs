@@ -2,7 +2,7 @@ using Xunit;
 
 namespace StorageServiceUnitTests
 {
-    public class UnitTest1
+    public class FileWriterUnitTests
     {
         [Fact]
         public void Test1()
