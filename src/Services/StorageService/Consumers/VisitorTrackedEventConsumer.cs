@@ -12,12 +12,15 @@ namespace StorageService.Consumers
     {
         private readonly ILogger<VisitorTrackedEventConsumer> _logger;
         private readonly VisitorsFileSettings _fileSettings;
+        private readonly IFileWriter _fileWriter;
 
         public VisitorTrackedEventConsumer(IOptionsMonitor<VisitorsFileSettings> fileSettings,
+            IFileWriter fileWriter,
             ILogger<VisitorTrackedEventConsumer> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _fileSettings = fileSettings.CurrentValue ?? throw new ArgumentNullException(nameof(fileSettings));
+            _fileWriter = fileWriter ?? throw new ArgumentNullException(nameof(fileWriter));
         }
 
         public async Task Consume(ConsumeContext<VisitorTrackedEvent> context)
@@ -40,26 +43,7 @@ namespace StorageService.Consumers
 
                 var visitorLog = $"{loggedDateTime}|{referer}|{userAgent}|{message.IpAddress}{Environment.NewLine}";
                 
-                
-                byte[] jsonBytes = Encoding.UTF8.GetBytes(visitorLog);
-
-                var directoryPath = Path.GetDirectoryName(_fileSettings.FilePath);
-
-                if (!string.IsNullOrEmpty(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
-
-                var fileStreamOptions = new FileStreamOptions
-                {
-                    Access = FileAccess.Write,
-                    Mode = FileMode.Append,
-                    Share = FileShare.Write,
-                    Options = FileOptions.Asynchronous
-                };
-
-                await using var sourceStream = File.Open(_fileSettings.FilePath, fileStreamOptions);
-                await sourceStream.WriteAsync(jsonBytes);
+                await _fileWriter.AppendToFile(_fileSettings.FilePath, visitorLog);
             }
             catch (Exception exc)
             {

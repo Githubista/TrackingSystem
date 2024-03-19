@@ -31,6 +31,8 @@ namespace StorageService
                     services.Configure<VisitorsFileSettings>(configuration.GetSection(nameof(VisitorsFileSettings)));
 
                     services.ConfigureMassTransit(configuration);
+
+                    services.AddSingleton<IFileWriter, FileWriter>();
                 });
     }
 }
