@@ -164,6 +164,5 @@ namespace PixelServiceUnitTests.Tracking
                     (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()),
                 Times.Once);
         }
-
     }
 }

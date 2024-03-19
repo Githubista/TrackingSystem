@@ -6,9 +6,9 @@ namespace StorageService
     {
         public async Task AppendToFile(string filePath, string input)
         {
-            if (string.IsNullOrEmpty(filePath))
+            if (string.IsNullOrWhiteSpace(filePath))
                 throw new ArgumentNullException(nameof(filePath));
-            if (string.IsNullOrEmpty(input))
+            if (string.IsNullOrWhiteSpace(input))
                 throw new ArgumentNullException(nameof(input));
 
 
