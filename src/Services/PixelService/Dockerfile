@@ -1,3 +1,5 @@
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -6,6 +8,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["src/Services/PixelService/PixelService.csproj", "src/Services/PixelService/"]
+COPY ["src/Common/Configuration.RabbitMq/Configuration.RabbitMq.csproj", "src/Common/Configuration.RabbitMq/"]
+COPY ["src/Common/Communication.Contracts/Communication.Contracts.csproj", "src/Common/Communication.Contracts/"]
 RUN dotnet restore "src/Services/PixelService/PixelService.csproj"
 COPY . .
 WORKDIR "/src/src/Services/PixelService"

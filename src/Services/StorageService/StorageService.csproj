@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,8 +40,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Common\Communication.Contracts\Communication.Contracts.csproj" />
-    <ProjectReference Include="..\src\Common\Configuration.RabbitMq\Configuration.RabbitMq.csproj" />
+    <ProjectReference Include="..\..\Common\Communication.Contracts\Communication.Contracts.csproj" />
+    <ProjectReference Include="..\..\Common\Configuration.RabbitMq\Configuration.RabbitMq.csproj" />
   </ItemGroup>
 
 </Project>

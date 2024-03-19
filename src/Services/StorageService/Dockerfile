@@ -5,10 +5,12 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["StorageService/StorageService.csproj", "StorageService/"]
-RUN dotnet restore "StorageService/StorageService.csproj"
+COPY ["src/Services/StorageService/StorageService.csproj", "src/Services/StorageService/"]
+COPY ["src/Common/Configuration.RabbitMq/Configuration.RabbitMq.csproj", "src/Common/Configuration.RabbitMq/"]
+COPY ["src/Common/Communication.Contracts/Communication.Contracts.csproj", "src/Common/Communication.Contracts/"]
+RUN dotnet restore "src/Services/StorageService/StorageService.csproj"
 COPY . .
-WORKDIR "/src/StorageService"
+WORKDIR "/src/src/Services/StorageService"
 RUN dotnet build "StorageService.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yaml = docker-compose.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService", "StorageService\StorageService.csproj", "{99E41B86-93BE-4ED2-B0F9-4EE70A9464F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService", "src\Services\StorageService\StorageService.csproj", "{99E41B86-93BE-4ED2-B0F9-4EE70A9464F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration.RabbitMq", "src\Common\Configuration.RabbitMq\Configuration.RabbitMq.csproj", "{0A1CC425-E625-4C32-87F0-3DC1F7A3AD49}"
 EndProject

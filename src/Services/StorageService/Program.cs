@@ -28,6 +28,7 @@ namespace StorageService
                     IConfiguration configuration = hostContext.Configuration;
 
                     services.Configure<QueueSettings>(configuration.GetSection(nameof(QueueSettings)));
+                    services.Configure<VisitorsFileSettings>(configuration.GetSection(nameof(VisitorsFileSettings)));
 
                     services.ConfigureMassTransit(configuration);
                 });
