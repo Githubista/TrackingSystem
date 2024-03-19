@@ -33,6 +33,7 @@ namespace StorageService
                     services.ConfigureMassTransit(configuration);
 
                     services.AddSingleton<IFileWriter, FileWriter>();
+                    services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
                 });
     }
 }

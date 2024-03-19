@@ -12,14 +12,17 @@ namespace StorageService.Consumers
         private readonly ILogger<VisitorTrackedEventConsumer> _logger;
         private readonly VisitorsFileSettings _fileSettings;
         private readonly IFileWriter _fileWriter;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
         public VisitorTrackedEventConsumer(IOptionsMonitor<VisitorsFileSettings> fileSettings,
             IFileWriter fileWriter,
+            IDateTimeProvider dateTimeProvider,
             ILogger<VisitorTrackedEventConsumer> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _fileSettings = fileSettings.CurrentValue ?? throw new ArgumentNullException(nameof(fileSettings));
             _fileWriter = fileWriter ?? throw new ArgumentNullException(nameof(fileWriter));
+            _dateTimeProvider = dateTimeProvider ?? throw new ArgumentNullException(nameof(dateTimeProvider));
         }
 
         public async Task Consume(ConsumeContext<VisitorTrackedEvent> context)
@@ -38,7 +41,7 @@ namespace StorageService.Consumers
             {
                 var referer = string.IsNullOrWhiteSpace(message.Referer) ? "null" : message.Referer;
                 var userAgent = string.IsNullOrWhiteSpace(message.UserAgent) ? "null" : message.UserAgent;
-                var loggedDateTime = DateTime.UtcNow.ToString("O");
+                var loggedDateTime = _dateTimeProvider.GetUtcNow();
 
                 var visitorLog = $"{loggedDateTime}|{referer}|{userAgent}|{message.IpAddress}{Environment.NewLine}";
                 
