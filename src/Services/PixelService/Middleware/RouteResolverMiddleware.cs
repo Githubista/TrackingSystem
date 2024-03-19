@@ -5,7 +5,7 @@ namespace PixelService.Middleware
     public class RouteResolverMiddleware
     {
         private readonly RequestDelegate _next;
-
+        
         private const string CONTENT_TYPE_HEADER_NAME = "Content-Type";
         private const string REFERER_HEADER_NAME = "Referer";
         private const string USER_AGENT_HEADER_NAME = "User-Agent";
@@ -14,15 +14,18 @@ namespace PixelService.Middleware
         private const string TRACK_METHOD_NAME = "/track";
 
         private readonly ILogger<RouteResolverMiddleware> _logger;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public RouteResolverMiddleware(RequestDelegate next,
-            ILogger<RouteResolverMiddleware> logger)
+            ILogger<RouteResolverMiddleware> logger,
+            IServiceScopeFactory serviceScopeFactory)
         {
             _next = next;
             _logger = logger;
+            _serviceScopeFactory = serviceScopeFactory;
         }
 
-        public async Task Invoke(HttpContext context, IHost host)
+        public async Task Invoke(HttpContext context)
         {
             var path = context.Request.Path;
 
@@ -39,7 +42,7 @@ namespace PixelService.Middleware
 
                     context.Response.Headers.Add(CONTENT_TYPE_HEADER_NAME, IMAGE_TYPE);
 
-                    using var scope = host.Services.CreateScope();
+                    using var scope = _serviceScopeFactory.CreateScope();
                     var trackingService = scope.ServiceProvider.GetRequiredService<IService<TrackingRequestModel, TrackingResponseModel>>();
                     var responseModel = await trackingService.GetAsync(requestModel, context, default);
                     var imageBytes = responseModel.ImageBytes;
