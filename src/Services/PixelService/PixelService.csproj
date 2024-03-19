@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Communication.Contracts\Communication.Contracts.csproj" />
     <ProjectReference Include="..\..\Common\Configuration.RabbitMq\Configuration.RabbitMq.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿using Communication.Contracts;
+﻿using Configuration.RabbitMq.CommunicationContracts;
 using MassTransit;
 using PixelService.Resources;
 
@@ -6,18 +6,20 @@ namespace PixelService.Tracking
 {
     public class TrackingService : IService<TrackingRequestModel, TrackingResponseModel>
     {
-        private readonly IBusControl _busControl;
+        private readonly IPublishEndpoint _publishEndpoint;
         private readonly ILogger<TrackingService> _logger;
 
-        public TrackingService(IBusControl busControl,
+        public TrackingService(IPublishEndpoint publishEndpoint,
             ILogger<TrackingService> logger)
         {
-            _busControl = busControl ?? throw new ArgumentNullException(nameof(busControl));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public ValueTask<TrackingResponseModel> GetAsync(TrackingRequestModel request, HttpContext context, CancellationToken cancellationToken)
         {
+            //this is a fire and forget method as my assumption is that we need to return very fast a response to this method
+            // so we can save time by not awaiting this publish
             _ = PublishTrackingInformation(request, cancellationToken);
             return ValueTask.FromResult(new TrackingResponseModel(ImageLoader.TrackingImage));
         }
@@ -38,7 +40,7 @@ namespace PixelService.Tracking
                     IpAddress = request.IpAddress
                 };
 
-                await _busControl.Publish(visitorTrackedEvent, cancellationToken);
+                await _publishEndpoint.Publish(visitorTrackedEvent, cancellationToken);
             }
             catch (Exception exc)
             {
