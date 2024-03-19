@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Configuration.RabbitMq\Configuration.RabbitMq.csproj" />
+    <ProjectReference Include="..\..\Common\Configuration.RabbitMq\RabbitMq.csproj" />
   </ItemGroup>
 
 </Project>
