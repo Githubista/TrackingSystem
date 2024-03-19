@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMq", "src\Common\Rabb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelServiceUnitTests", "tests\Services\PixelServiceUnitTests\PixelServiceUnitTests.csproj", "{62BCB59A-E936-4F14-9E5E-B16DC8BCFF26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageServiceUnitTests", "tests\Services\StorageServiceUnitTests\StorageServiceUnitTests.csproj", "{9D398618-336E-4A0A-9E2D-862A3BF4B020}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{62BCB59A-E936-4F14-9E5E-B16DC8BCFF26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62BCB59A-E936-4F14-9E5E-B16DC8BCFF26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62BCB59A-E936-4F14-9E5E-B16DC8BCFF26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D398618-336E-4A0A-9E2D-862A3BF4B020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D398618-336E-4A0A-9E2D-862A3BF4B020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D398618-336E-4A0A-9E2D-862A3BF4B020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D398618-336E-4A0A-9E2D-862A3BF4B020}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{C6599B9F-2DB8-4FF5-B9D3-581AA96D8FC6} = {01E66DCB-4BF6-47DF-8C44-FC82F772FCFE}
 		{4E871C19-0858-4762-BA97-037F84348AD7} = {B39F79E6-54E7-4B0B-A57A-B7D9A5663FBB}
 		{62BCB59A-E936-4F14-9E5E-B16DC8BCFF26} = {C6599B9F-2DB8-4FF5-B9D3-581AA96D8FC6}
+		{9D398618-336E-4A0A-9E2D-862A3BF4B020} = {C6599B9F-2DB8-4FF5-B9D3-581AA96D8FC6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D5B6A35E-5845-42AA-A0C2-5DBD4AA41296}

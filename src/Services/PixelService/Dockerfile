@@ -6,7 +6,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["src/Services/PixelService/PixelService.csproj", "src/Services/PixelService/"]
-COPY ["src/Common/Configuration.RabbitMq/Configuration.RabbitMq.csproj", "src/Common/Configuration.RabbitMq/"]
+COPY ["src/Common/RabbitMq/RabbitMq.csproj", "src/Common/RabbitMq/"]
 RUN dotnet restore "src/Services/PixelService/PixelService.csproj"
 COPY . .
 WORKDIR "/src/src/Services/PixelService"

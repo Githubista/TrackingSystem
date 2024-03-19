@@ -4,7 +4,7 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["src/Services/StorageService/StorageService.csproj", "src/Services/StorageService/"]
-COPY ["src/Common/Configuration.RabbitMq/Configuration.RabbitMq.csproj", "src/Common/Configuration.RabbitMq/"]
+COPY ["src/Common/RabbitMq/RabbitMq.csproj", "src/Common/RabbitMq/"]
 RUN dotnet restore "src/Services/StorageService/StorageService.csproj"
 COPY . .
 WORKDIR "/src/src/Services/StorageService"
