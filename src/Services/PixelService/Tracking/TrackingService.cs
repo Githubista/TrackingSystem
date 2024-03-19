@@ -16,10 +16,10 @@ namespace PixelService.Tracking
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<TrackingResponseModel> GetAsync(TrackingRequestModel request, HttpContext context, CancellationToken cancellationToken)
+        public Task<TrackingResponseModel> GetAsync(TrackingRequestModel request, HttpContext context, CancellationToken cancellationToken)
         {
             _ = PublishTrackingInformation(request, cancellationToken);
-            return new TrackingResponseModel(ImageLoader.TrackingImage);
+            return Task.FromResult(new TrackingResponseModel(ImageLoader.TrackingImage));
         }
 
         public async Task PublishTrackingInformation(TrackingRequestModel request, CancellationToken cancellationToken)
@@ -31,7 +31,12 @@ namespace PixelService.Tracking
                     return;
                 }
 
-                var visitorTrackedEvent = new VisitorTrackedEvent(request.Referer, request.UserAgent, request.IpAddress);
+                var visitorTrackedEvent = new VisitorTrackedEvent
+                    {
+                        Referer = request.Referer, 
+                        UserAgent = request.UserAgent, 
+                        IpAddress = request.IpAddress
+                    };
 
                 await _busControl.Publish(visitorTrackedEvent, cancellationToken);
             }

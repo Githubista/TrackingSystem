@@ -24,8 +24,6 @@ namespace PixelService.Middleware
 
         public async Task Invoke(HttpContext context, IHost host)
         {
-            OptionsMiddleware.SetHeaders(context);
-
             var path = context.Request.Path;
 
             if (context.Request.Method.Equals(GET_METHOD_NAME, StringComparison.OrdinalIgnoreCase) &&

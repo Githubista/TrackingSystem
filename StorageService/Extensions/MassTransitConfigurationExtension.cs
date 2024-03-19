@@ -6,9 +6,9 @@ using StorageService.Consumers;
 
 namespace StorageService.Extensions
 {
-    public static class MassTransitConfigurationExtension
+    internal static class MassTransitConfigurationExtension
     {
-        public static IServiceCollection ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration)
+        internal static IServiceCollection ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration)
         {
             var rabbitMqSettings = configuration.GetSection(nameof(RabbitMqSettings)).Get<RabbitMqSettings>();
 
@@ -26,7 +26,7 @@ namespace StorageService.Extensions
                 });
             });
 
-            //services.AddHostedService<ReceiveEndpointsService>();
+            services.AddHostedService<ReceiveEndpointsService>();
 
             return services;
         }

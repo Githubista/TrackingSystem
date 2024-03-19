@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using StorageService.Extensions;
+using StorageService.Settings;
 
 namespace StorageService
 {
@@ -24,6 +26,9 @@ namespace StorageService
                 .ConfigureServices((hostContext, services) =>
                 {
                     IConfiguration configuration = hostContext.Configuration;
+
+                    services.Configure<QueueSettings>(configuration.GetSection(nameof(QueueSettings)));
+
                     services.ConfigureMassTransit(configuration);
                 });
     }
