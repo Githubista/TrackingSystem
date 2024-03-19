@@ -11,6 +11,28 @@ services:
         volumes:
           - rabbitmq_data:/var/lib/rabbitmq  
 
+    pixel-service:
+        image: pixel-service:${PLATFORM:-linux}-${TAG:-latest}
+        build:
+            context: .
+            dockerfile: ./src/Services/PixelService/Dockerfile
+        environment:   
+            - ASPNETCORE_ENVIRONMENT=Development
+        ports:
+            - 5128:80
+        depends_on:            
+            - rabbitmq
+
+    storage-service:
+        image: storage-service:${PLATFORM:-linux}-${TAG:-latest}
+        build:
+            context: .
+            dockerfile: ./src/Services/StorageService/Dockerfile
+        environment:   
+            - DOTNET_ENVIRONMENT=Development        
+        depends_on:            
+            - rabbitmq
+
 volumes:  
   rabbitmq_data:
     driver: local
