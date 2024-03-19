@@ -1,4 +1,4 @@
-﻿namespace PixelService.Settings
+﻿namespace Configuration.RabbitMq
 {
     public class RabbitMqSettings
     {

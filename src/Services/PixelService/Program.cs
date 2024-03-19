@@ -1,3 +1,7 @@
+using Configuration.RabbitMq;
+using MassTransit;
+using PixelService.Middleware;
+using PixelService.Tracking;
 using static PixelService.Resources.ImageLoader;
 
 namespace PixelService
@@ -19,9 +23,32 @@ namespace PixelService
                     // normally an event log as Serilog needs to be configured
                     logging.AddConsole();
                 })
+                .ConfigureServices((hostContext, services) =>
+                {
+                    var configuration = hostContext.Configuration;
+                    services.AddScoped<IService<TrackingRequestModel, TrackingResponseModel>, TrackingService>();
+                    services.AddMassTransit(x =>
+                    {
+                        var rabbitMqSettings = configuration.GetSection(nameof(RabbitMqSettings)).Get<RabbitMqSettings>();
+                        x.UsingRabbitMq((context, cfg) =>
+                        {
+                            cfg.Host(rabbitMqSettings.Host, rabbitMqSettings.Port, "/", h =>
+                            {
+                                h.Username(rabbitMqSettings.Username);
+                                h.Password(rabbitMqSettings.Password);
+                            });
+
+                            cfg.ConfigureEndpoints(context);
+                        });
+                    });
+
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.Configure((context, builder) =>
+                    {
+                        builder.UseRouteResolverMiddleware();
+                    });
                 });
     }
 }

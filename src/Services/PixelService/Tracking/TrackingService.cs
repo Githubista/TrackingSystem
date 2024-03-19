@@ -26,6 +26,11 @@ namespace PixelService.Tracking
         {
             try
             {
+                if (string.IsNullOrEmpty(request.IpAddress))
+                {
+                    return;
+                }
+
                 var visitorTrackedEvent = new VisitorTrackedEvent(request.Referer, request.UserAgent, request.IpAddress);
 
                 await _busControl.Publish(visitorTrackedEvent, cancellationToken);

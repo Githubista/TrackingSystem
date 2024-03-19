@@ -37,8 +37,6 @@ namespace PixelService.Middleware
                     var userAgent = context.Request.Headers[USER_AGENT_HEADER_NAME].ToString();
                     var ipAddress = context.Connection.RemoteIpAddress?.ToString();
 
-                    _logger.LogInformation("Ip address is {ip}", ipAddress);
-
                     var requestModel = new TrackingRequestModel(referrer, userAgent, ipAddress);
 
                     context.Response.Headers.Add(CONTENT_TYPE_HEADER_NAME, IMAGE_TYPE);
