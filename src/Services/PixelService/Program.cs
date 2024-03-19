@@ -1,7 +1,7 @@
-using Configuration.RabbitMq;
 using MassTransit;
 using PixelService.Middleware;
 using PixelService.Tracking;
+using RabbitMq;
 using static PixelService.Resources.ImageLoader;
 
 namespace PixelService

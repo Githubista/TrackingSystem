@@ -1,4 +1,4 @@
-﻿namespace Configuration.RabbitMq
+﻿namespace RabbitMq
 {
     public class RabbitMqSettings
     {

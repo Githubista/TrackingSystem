@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text;
-using Configuration.RabbitMq.CommunicationContracts;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using RabbitMq.CommunicationContracts;
 using StorageService.Settings;
 
 namespace StorageService.Consumers

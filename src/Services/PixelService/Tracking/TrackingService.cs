@@ -1,6 +1,6 @@
-﻿using Configuration.RabbitMq.CommunicationContracts;
-using MassTransit;
+﻿using MassTransit;
 using PixelService.Resources;
+using RabbitMq.CommunicationContracts;
 
 namespace PixelService.Tracking
 {

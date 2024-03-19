@@ -1,7 +1,7 @@
-﻿using Configuration.RabbitMq;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RabbitMq;
 using StorageService.Consumers;
 
 namespace StorageService.Extensions

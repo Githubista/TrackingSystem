@@ -1,4 +1,4 @@
-﻿namespace Configuration.RabbitMq.CommunicationContracts
+﻿namespace RabbitMq.CommunicationContracts
 {
     public class VisitorTrackedEvent
     {
