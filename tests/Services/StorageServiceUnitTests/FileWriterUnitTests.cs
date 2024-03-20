@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -65,7 +66,7 @@ namespace StorageServiceUnitTests
             // arrange
             var filePath = "dir3/dir4/file.txt";
 
-            //Directory.Exists("dir3/dir4").Should().BeFalse();
+            Directory.Exists("dir3/dir4").Should().BeFalse();
             var input = "some text";
 
             //act
@@ -76,6 +77,43 @@ namespace StorageServiceUnitTests
             readText.Should().Be(input);
 
             Directory.Delete("dir3/dir4", true);
+        }
+
+        [Fact]
+        public async Task Given_ConcurrentUsers_When_AppendToFile_Then_InputsAreWrittenToTheFile()
+        {
+            // arrange
+            var filePath = "dir/file.txt";
+
+            if (Directory.Exists("dir"))
+            {
+                Directory.Delete("dir", true);
+            }
+
+            Directory.Exists("dir").Should().BeFalse();
+
+            var fileTasks = new List<Task>();
+            var inputs = new List<string>
+            {
+                "input1",
+                "input2",
+                "input3",
+                "input4",
+                "input5"
+            };
+
+            inputs.ForEach(i =>
+            {
+                fileTasks.Add(_systemUnderTest.AppendToFile(filePath, i));
+            });
+
+            //act
+            await Task.WhenAll(fileTasks);
+
+            //assert
+            var expectedFileContent = string.Join("", inputs);
+            var readText = await File.ReadAllTextAsync(filePath);
+            readText.Should().Be(expectedFileContent);
         }
     }
 }
